@@ -9,4 +9,7 @@ export type PhraseContextType = {
   removePhrase: (id: string) => void;
   editPhrase: (id: string, newText: string) => void;
   searchPhrase: (query: string) => Phrase[];
+  editId: string | null;
+  startEditing: (id: string) => void; 
+  stopEditing: () => void; 
 };

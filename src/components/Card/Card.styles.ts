@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { IconButton as MuiIconButton } from "@mui/material";
 
 export const CardWrapper = styled.div`
   background-color: #f8f9fa;
@@ -17,4 +18,11 @@ export const CardActions = styled.div`
 export const CardContent = styled.p`
   margin: 0 0 8px;
   color: #495057;
+`;
+
+export const IconButton = styled(MuiIconButton)`
+  &:focus {
+    outline: none;
+    border: none;
+  }
 `;

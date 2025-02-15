@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { usePhrase } from "../../context/PhraseContext/usePhrase";
-import { Button, Box, Grid, Typography } from "@mui/material";
-import { Card } from "../../components/Card/Card";
+import { HeaderBar } from "../../components/Header/HeaderBar";
 import { PhraseSearch } from "../../renderProps/PhraseSearch";
-import { SearchBar } from "../../components/SearchBar/SearchBar"; // Importamos el SearchBar
+import { CardList } from "../../components/Card/CardList";
+import { Title, Container, NoResultsContainer, NoResultsImage } from "./PhraseManager.styles";
 
 export const PhraseManager: React.FC = () => {
   const { addPhrase, removePhrase, editPhrase } = usePhrase();
@@ -28,57 +28,40 @@ export const PhraseManager: React.FC = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        height: "100vh",
-        padding: 3,
-      }}
-    >
-      <Typography variant="h4" sx={{ marginBottom: 2 }}>
-        Gestor de Frases
-      </Typography>
-
-      <SearchBar
-        value={newPhrase}
-        onChange={(e) => setNewPhrase(e.target.value)}
-        placeholder="Agregar o editar frase"
-      />
-
-      <Button
-        onClick={handleSave}
-        variant="contained"
-        color="primary"
-        sx={{ marginBottom: 3 }}
-      >
-        {editId ? "Guardar Cambios" : "Agregar"}
-      </Button>
-
+    <Container>
       <PhraseSearch>
         {(results, handleSearch, query) => (
           <>
-            <SearchBar
-              value={query}
-              onChange={(e) => handleSearch(e.target.value)}
-              placeholder="Buscar frases"
+            <Title>Gestor de Frases 💬</Title>
+
+            <HeaderBar
+              newPhrase={newPhrase}
+              setNewPhrase={setNewPhrase}
+              editId={editId}
+              handleSave={handleSave}
+              handleEdit={handleEdit}
+              removePhrase={removePhrase}
+              handleSearch={handleSearch}
+              query={query}
             />
 
-            <Grid container spacing={3}>
-              {results.map((phrase) => (
-                <Grid item xs={12} sm={6} md={3} key={phrase.id}>
-                  <Card
-                    content={phrase.text}
-                    onEdit={() => handleEdit(phrase.id, phrase.text)}
-                    onDelete={() => removePhrase(phrase.id)}
-                  />
-                </Grid>
-              ))}
-            </Grid>
+            {results.length > 0 ? (
+              <CardList
+                results={results}
+                handleEdit={handleEdit}
+                removePhrase={removePhrase}
+              />
+            ) : (
+              <NoResultsContainer>
+                <NoResultsImage
+                  src="src/assets/images/NoResults.png"
+                  alt="No Results Found"
+                />
+              </NoResultsContainer>
+            )}
           </>
         )}
       </PhraseSearch>
-    </Box>
+    </Container>
   );
 };

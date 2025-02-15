@@ -8,6 +8,7 @@ type PhraseProviderProps = {
 
 export const PhraseProvider = ({ children }: PhraseProviderProps) => {
   const [phrases, setPhrases] = useState<Phrase[]>([]);
+  const [editId, setEditId] = useState<string | null>(null);
 
   const addPhrase = useCallback((text: string) => {
     setPhrases((prev) => [...prev, { id: Date.now().toString(), text }]);
@@ -21,6 +22,7 @@ export const PhraseProvider = ({ children }: PhraseProviderProps) => {
     setPhrases((prev) =>
       prev.map((phrase) => (phrase.id === id ? { ...phrase, text: newText } : phrase))
     );
+    stopEditing();
   }, []);
 
   const searchPhrase = useCallback(
@@ -32,9 +34,19 @@ export const PhraseProvider = ({ children }: PhraseProviderProps) => {
     [phrases]
   );
 
+  const startEditing = useCallback((id: string) => {
+    setEditId(id);
+  }, []);
+
+  const stopEditing = useCallback(() => {
+    setEditId(null);
+  }, []);
+
   const value = useMemo(
-    () => ({ phrases, addPhrase, removePhrase, editPhrase, searchPhrase }),
-    [phrases, addPhrase, removePhrase, editPhrase, searchPhrase]
+    () => ({
+      phrases, addPhrase, removePhrase, editPhrase, searchPhrase, editId, startEditing, stopEditing
+    }),
+    [phrases, addPhrase, removePhrase, editPhrase, searchPhrase, editId, startEditing, stopEditing]
   );
 
   return <PhraseContext.Provider value={value}>{children}</PhraseContext.Provider>;

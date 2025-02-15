@@ -1,13 +1,13 @@
 import React from "react";
 import { TextField } from "@mui/material";
 
-interface SearchBarProps {
+interface MainBarProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({
+export const MainBar: React.FC<MainBarProps> = ({
   value,
   onChange,
   placeholder,
