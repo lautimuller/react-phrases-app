@@ -26,7 +26,7 @@ export const Card: React.FC<CardProps> = ({ phraseId }) => {
   };
 
   return (
-    <StyledCard isEditing={phrase.id === editId}>
+    <StyledCard sx={{boxShadow: phrase.id === editId ? 8 : 2}}>
       <StyledCardContent>
         <Typography variant="body2" color="text.secondary">
           {phrase.text}

@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { Card as MuiCard, CardContent as MuiCardContent, Box as MuiBox, IconButton as MuiIconButton } from "@mui/material";
 
-interface StyledCardProps {
-  isEditing: boolean;
-}
-
-export const StyledCard = styled(MuiCard)<StyledCardProps>`
-  box-shadow: ${({ isEditing }) => (isEditing ? 8 : 2)};
+export const StyledCard = styled(MuiCard)`
   min-height: 150px;
   display: flex;
   flex-direction: column;
