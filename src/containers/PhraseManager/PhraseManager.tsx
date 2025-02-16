@@ -1,8 +1,9 @@
 import React from "react";
 import { PhraseSearch } from "../../renderProps/PhraseSearch";
 import { CardList } from "../../components/Card/CardList";
-import { Title, Container, NoResultsContainer, NoResultsImage } from "./PhraseManager.styles";
+import { Title, Container } from "./PhraseManager.styles";
 import { HeaderBar } from "../../components/Header/HeaderBar";
+import { NoResults } from "../../components/EmptyState/NoResults";
 
 export const PhraseManager: React.FC = () => {
   return (
@@ -12,16 +13,7 @@ export const PhraseManager: React.FC = () => {
           <>
             <Title>Gestor de Frases 💬</Title>
             <HeaderBar />
-            {results.length > 0 ? (
-              <CardList />
-            ) : (
-              <NoResultsContainer>
-                <NoResultsImage
-                  src="src/assets/images/NoResults.png"
-                  alt="No Results Found"
-                />
-              </NoResultsContainer>
-            )}
+            {results.length > 0 ? <CardList /> : <NoResults />}
           </>
         )}
       </PhraseSearch>

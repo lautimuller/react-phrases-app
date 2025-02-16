@@ -1,4 +1,6 @@
 import { withErrorBoundary } from '../../hoc/withErrorBoundary';
 import { PhraseManager } from './PhraseManager';
 
-export default withErrorBoundary(PhraseManager);
+const EnhancedPhraseManager = withErrorBoundary(PhraseManager);
+
+export default EnhancedPhraseManager;

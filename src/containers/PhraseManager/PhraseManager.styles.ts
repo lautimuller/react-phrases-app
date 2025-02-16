@@ -53,15 +53,3 @@ export const Container = styled.div`
   height: 100%;
   padding: 0 3rem;
 `;
-
-export const NoResultsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const NoResultsImage = styled.img`
-  max-width: 40%;
-  height: auto;
-`;
