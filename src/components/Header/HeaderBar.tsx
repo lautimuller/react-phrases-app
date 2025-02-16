@@ -60,6 +60,7 @@ export const HeaderBar: React.FC = () => {
           variant="contained"
           color="primary"
           sx={buttonPrimaryStyle}
+          data-testid="save-button"
         >
           {editId ? <Save /> : <Add />}
         </Button>
@@ -68,6 +69,7 @@ export const HeaderBar: React.FC = () => {
           variant="contained"
           color="secondary"
           sx={buttonSecondaryStyle}
+          data-testid="toggle-search-button"
         >
           {searchVisible ? <Close /> : <Search />}
         </Button>

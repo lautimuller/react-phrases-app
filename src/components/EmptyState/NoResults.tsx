@@ -4,7 +4,7 @@ import { NoResultsContainer, NoResultsImage } from "./NoResults.styles";
 export const NoResults: React.FC = () => {
   return (
     <NoResultsContainer>
-      <NoResultsImage
+      <NoResultsImage data-testid="no-results"
         src="src/assets/images/NoResults.png"
         alt="No se encontraron resultados"
       />
