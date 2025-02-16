@@ -1,5 +1,27 @@
 import styled from "styled-components";
-import { IconButton as MuiIconButton } from "@mui/material";
+import { Card as MuiCard, CardContent as MuiCardContent, Box as MuiBox, IconButton as MuiIconButton } from "@mui/material";
+
+interface StyledCardProps {
+  isEditing: boolean;
+}
+
+export const StyledCard = styled(MuiCard)<StyledCardProps>`
+  box-shadow: ${({ isEditing }) => (isEditing ? 8 : 2)};
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const StyledCardContent = styled(MuiCardContent)`
+  flex-grow: 1;
+`;
+
+export const StyledBox = styled(MuiBox)`
+  display: flex;
+  justify-content: end;
+  padding: 1;
+`;
 
 export const CardWrapper = styled.div`
   background-color: #f8f9fa;

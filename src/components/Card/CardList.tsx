@@ -9,7 +9,7 @@ export const CardList: React.FC = () => {
   return (
     <Grid container spacing={3}>
       {phrases.map((phrase) => (
-        <Grid item xs={12} sm={6} md={3} key={phrase.id}>
+        <Grid item xs={12} sm={6} md={3} key={phrase.id} data-testid={`card-${phrase.id}`}>
           <Card phraseId={phrase.id} />
         </Grid>
       ))}
