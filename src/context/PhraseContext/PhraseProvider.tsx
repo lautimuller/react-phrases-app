@@ -1,6 +1,6 @@
-import { useState, ReactNode, useCallback, useMemo } from 'react';
-import { PhraseContext } from './PhraseContext';
-import { Phrase } from './PhraseContext.types';
+import { useState, ReactNode, useCallback, useMemo } from "react";
+import { PhraseContext } from "./PhraseContext";
+import { Phrase } from "./PhraseContext.types";
 
 type PhraseProviderProps = {
   children: ReactNode;
@@ -8,7 +8,9 @@ type PhraseProviderProps = {
 
 export const PhraseProvider = ({ children }: PhraseProviderProps) => {
   const [phrases, setPhrases] = useState<Phrase[]>([]);
+  const [newPhrase, setNewPhrase] = useState("");
   const [editId, setEditId] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
 
   const addPhrase = useCallback((text: string) => {
     setPhrases((prev) => [...prev, { id: Date.now().toString(), text }]);
@@ -20,34 +22,59 @@ export const PhraseProvider = ({ children }: PhraseProviderProps) => {
 
   const editPhrase = useCallback((id: string, newText: string) => {
     setPhrases((prev) =>
-      prev.map((phrase) => (phrase.id === id ? { ...phrase, text: newText } : phrase))
+      prev.map((phrase) =>
+        phrase.id === id ? { ...phrase, text: newText } : phrase
+      )
     );
     stopEditing();
   }, []);
 
-  const searchPhrase = useCallback(
-    (query: string) => {
-      return phrases.filter((phrase) =>
-        phrase.text.toLowerCase().includes(query.toLowerCase())
-      );
-    },
-    [phrases]
-  );
-
-  const startEditing = useCallback((id: string) => {
-    setEditId(id);
+  const startEditing = useCallback((phrase: Phrase) => {
+    setEditId(phrase.id);
+    setNewPhrase(phrase.text)
   }, []);
 
   const stopEditing = useCallback(() => {
     setEditId(null);
   }, []);
 
+  const filteredPhrases = useMemo(() => {
+    if (!query) return phrases;
+    return phrases.filter((phrase) =>
+      phrase.text.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [phrases, query]);
+
   const value = useMemo(
     () => ({
-      phrases, addPhrase, removePhrase, editPhrase, searchPhrase, editId, startEditing, stopEditing
+      phrases: filteredPhrases,
+      addPhrase,
+      removePhrase,
+      editPhrase,
+      newPhrase,
+      setNewPhrase,
+      editId,
+      startEditing,
+      stopEditing,
+      query,
+      setQuery,
     }),
-    [phrases, addPhrase, removePhrase, editPhrase, searchPhrase, editId, startEditing, stopEditing]
+    [
+      filteredPhrases,
+      addPhrase,
+      removePhrase,
+      editPhrase,
+      newPhrase,
+      setNewPhrase,
+      editId,
+      startEditing,
+      stopEditing,
+      query,
+      setQuery,
+    ]
   );
 
-  return <PhraseContext.Provider value={value}>{children}</PhraseContext.Provider>;
+  return (
+    <PhraseContext.Provider value={value}>{children}</PhraseContext.Provider>
+  );
 };

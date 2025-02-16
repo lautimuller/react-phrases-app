@@ -7,33 +7,37 @@ import {
   searchBarStyle,
   buttonContainerStyle,
   buttonPrimaryStyle,
-  buttonSecondaryStyle
-} from './HeaderBar.styles';
+  buttonSecondaryStyle,
+} from "./HeaderBar.styles";
 import { SearchBar } from "../Bar/SearchBar";
 import { MainBar } from "../Bar/MainBar";
+import { usePhrase } from "../../context/PhraseContext/usePhrase";
 
-interface HeaderBarProps {
-  newPhrase: string;
-  setNewPhrase: (phrase: string) => void;
-  editId: string | null;
-  handleSave: () => void;
-  handleEdit: (id: string, text: string) => void;
-  removePhrase: (id: string) => void;
-  handleSearch: (query: string) => void;
-  query: string;
-}
+export const HeaderBar: React.FC = () => {
+  const {
+    newPhrase,
+    setNewPhrase,
+    editId,
+    addPhrase,
+    editPhrase,
+    stopEditing,
+  } = usePhrase();
 
-export const HeaderBar: React.FC<HeaderBarProps> = ({
-  newPhrase,
-  setNewPhrase,
-  editId,
-  handleSave,
-  handleSearch,
-  query,
-}) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
+  };
+
+  const handleSave = () => {
+    if (newPhrase.trim()) {
+      if (editId) {
+        editPhrase(editId, newPhrase);
+        stopEditing();
+      } else {
+        addPhrase(newPhrase);
+      }
+      setNewPhrase("");
+    }
   };
 
   return (
@@ -47,12 +51,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
           />
         </Box>
 
-        {searchVisible && (
-           <SearchBar
-           query={query}
-           handleSearch={handleSearch}
-         />
-        )}
+        {searchVisible && <SearchBar />}
       </Box>
 
       <Box sx={buttonContainerStyle}>

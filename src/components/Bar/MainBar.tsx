@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField } from "@mui/material";
+import { textFieldStyle } from "./MainBar.styles";
 
 interface MainBarProps {
   value: string;
@@ -19,7 +20,7 @@ export const MainBar: React.FC<MainBarProps> = ({
       placeholder={placeholder}
       fullWidth
       variant="outlined"
-      sx={{ marginBottom: 2 }}
+      sx={textFieldStyle}
     />
   );
 };
