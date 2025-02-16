@@ -21,6 +21,7 @@ export const MainBar: React.FC<MainBarProps> = ({
       fullWidth
       variant="outlined"
       sx={textFieldStyle}
+      inputProps={{ maxLength: 120  }}
     />
   );
 };

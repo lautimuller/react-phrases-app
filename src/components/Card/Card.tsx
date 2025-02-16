@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Card as MuiCard,
-  CardContent,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Card as MuiCard, CardContent, Typography, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { usePhrase } from "../../context/PhraseContext/usePhrase";
@@ -28,7 +23,7 @@ export const Card: React.FC<CardProps> = ({ phraseId }) => {
   return (
     <MuiCard
       sx={{
-        boxShadow: phrase.id === editId ? 6 : 2,
+        boxShadow: phrase.id === editId ? 8 : 2,
         minHeight: "150px",
         display: "flex",
         flexDirection: "column",

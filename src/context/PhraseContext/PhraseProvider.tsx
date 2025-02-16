@@ -18,6 +18,8 @@ export const PhraseProvider = ({ children }: PhraseProviderProps) => {
 
   const removePhrase = useCallback((id: string) => {
     setPhrases((prev) => prev.filter((phrase) => phrase.id !== id));
+    setNewPhrase("");
+    stopEditing();
   }, []);
 
   const editPhrase = useCallback((id: string, newText: string) => {
